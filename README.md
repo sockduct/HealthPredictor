@@ -18,19 +18,11 @@
   * Windows:
 
     ```PowerShell
-    py -3.12 -m venv .venv
-    .venv\scripts\activate
+    PS> py -3.12 -m venv .venv
+    PS> .venv\scripts\activate
     ```
 
 * Install required libraries from within Python virtual environment:
   `pip install -r requirements.txt`
-  * Note:  If some of the dependencies fail to install with an error message
-           about missing rustc, look at installing Visual Studio Build Tools and
-           the Rust Compiler as outlined below.
-* You may need to install the Visual Studio Build Tools and Rust Compiler to
-  build some of the dependencies:
-  * [Install Rust](https://www.rust-lang.org/tools/install)
-  * [Install Rust from CLI on Windows](
-    https://www.petergirnus.com/blog/how-to-install-rust-on-windows)
 * Start the Jupyter lab environment to browse/work on the Notebooks:
   `jupyter lab`
