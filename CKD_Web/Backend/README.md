@@ -15,6 +15,7 @@ pip install -r requirements.txt
 
 ### How to Run
 Make sure you have the trained model file ckd_model.pkl in the same directory.
+Add .env to backend folder with llm model details
 
 Run the Flask app:
 python app.py
