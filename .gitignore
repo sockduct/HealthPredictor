@@ -172,3 +172,8 @@ cython_debug/
 
 # PDFs
 *.pdf
+
+# Shelve/DBM files:
+*.bak
+*.dat
+*.dir
