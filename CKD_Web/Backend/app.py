@@ -8,7 +8,8 @@ from flask import session
 from contextChatbot import llm, general_context
 
 app = Flask(__name__)
-CORS(app)
+app.config['SECRET_KEY'] = 'scretkeyforckdsession12aiproject'
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
 with open('ckd_model.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -19,9 +20,10 @@ columns = [
     'blood_glucose_random', 'red_blood_cell_count', 'blood_urea'
 ]
 
-
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200
     try:
         data = request.json
 
@@ -50,12 +52,12 @@ def predict():
             "prediction": prediction_result
         }
 
-        # session['patient_data'] = {
-        #     "features": data,
-        #     "prediction": prediction_result
-        # }
-        # print("Session Data:", session.get('patient_data'))
-        # session.modified = True
+        session['patient_data'] = {
+            "features": data,
+            "prediction": prediction_result
+        }
+        print("Session Data:", session.get('patient_data'))
+        session.modified = True
 
         return jsonify({'prediction': prediction_result})
 
@@ -63,8 +65,10 @@ def predict():
         return jsonify({'error': str(e)})
     
 
-@app.route('/chat', methods=['POST'])
+@app.route('/chat', methods=['POST', 'OPTIONS'])
 def chat():
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200
     try:
         data = request.get_json()
         user_input = data.get('message')
@@ -72,8 +76,8 @@ def chat():
         if not user_input:
             return jsonify({'error': 'No message provided'}), 400
         
-        # patient_data = session.get('patient_data', None)
-        # print("Session Data in Chat-----------:", session.get('patient_data'))
+        patient_data = session.get('patient_data', None)
+        print("Session Data in Chat-----------:", session.get('patient_data'))
 
         patient_info_section = "\n".join([f"{key}: {value}" for key, value in patient_data.get("features", {}).items()])
         prediction_result = "Positive (1) - High risk of CKD" if patient_data.get("prediction") == 1 else "Negative (0) - No immediate risk"
@@ -81,6 +85,7 @@ def chat():
         
         final_context = f"""
             You are a highly specialized medical assistant focused on Chronic Kidney Disease (CKD) and overall kidney health.
+            You can respond to greetings and general conversational messages naturally.
             Your responses must be **strictly based** on the provided context and your verified medical knowledge about CKD and kidney health. 
             
             **IMPORTANT RULES**
@@ -129,4 +134,4 @@ def chat():
     
 if __name__ == '__main__':
     print("App is running")
-    app.run(debug=True)
+    app.run(debug=True, host="localhost", port=5050)

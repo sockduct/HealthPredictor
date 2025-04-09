@@ -59,7 +59,7 @@ const Home: React.FC = () => {
           blood_urea: formData.blood_urea
         };
 
-        const response = await axios.post('http://127.0.0.1:5000/predict', data);
+        const response = await axios.post('http://localhost:5050/predict', data, {withCredentials: true});
         const prediction = response.data.prediction;
 
         router.push(`/results?prediction=${prediction}`);

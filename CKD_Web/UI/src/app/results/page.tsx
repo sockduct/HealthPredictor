@@ -12,25 +12,26 @@ const Results: React.FC = () => {
   const [chatMessages, setChatMessages] = useState([
     { sender: 'bot', text: 'Hello! I am here to help. Ask me anything about your results.' }
   ]);
-    
+
   const handleSendMessage = async () => {
     if (userInput.trim() === '') return;
-  
+
     const newMessages = [...chatMessages, { sender: 'user', text: userInput }];
     setChatMessages(newMessages);
-  
+
     try {
-      
-      const response = await fetch('http://127.0.0.1:5000/chat', {
+
+      const response = await fetch('http://localhost:5050/chat', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: userInput }),
       });
-  
+
       const data = await response.json();
-  
+
       setChatMessages([
         ...newMessages,
         {
@@ -44,10 +45,10 @@ const Results: React.FC = () => {
         { sender: 'bot', text: 'Error communicating with server.' },
       ]);
     }
-  
+
     setUserInput('');
   };
-  
+
   return (
     <div className="bg-gradient-to-r from-yellow-600 to-indigo-700 min-h-screen text-white flex flex-col items-center px-4 py-16">
       <div className="text-center max-w-4xl mx-auto mb-16">
@@ -59,23 +60,26 @@ const Results: React.FC = () => {
           {prediction === '1' ? 'Yes' : 'No'}
         </div>
       </div>
-    
+
       <div className="w-full max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg text-gray-800">
         <h2 className="text-2xl font-semibold mb-4">AI Chat</h2>
         <div className="space-y-4 mb-4 h-[450px] overflow-auto p-2 border border-gray-300 rounded-lg">
           {chatMessages.map((msg, index) => (
             <div
               key={index}
-              className={`${
-                msg.sender === 'user' ? 'text-right' : 'text-left'
-              }`}
+              className={`${msg.sender === 'user' ? 'text-right' : 'text-left'
+                }`}
             >
               <div
-                className={`inline-block ${
-                  msg.sender === 'user' ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-700'
-                } p-3 rounded-lg`}
+                className={`inline-block ${msg.sender === 'user' ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-700'
+                  } p-3 rounded-lg`}
               >
-                {msg.text}
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: msg.text.replace(/\n/g, '<br />').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                  }}
+                />
+
               </div>
             </div>
           ))}
