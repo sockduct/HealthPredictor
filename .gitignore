@@ -128,7 +128,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -169,3 +168,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# PDFs
+*.pdf
+
+# Shelve/DBM files:
+*.bak
+*.dat
+*.dir
+config.bat
+node_modules
