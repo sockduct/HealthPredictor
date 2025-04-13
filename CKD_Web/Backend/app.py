@@ -6,19 +6,25 @@ import pandas as pd
 from flask import session
 # Import context and Azure LLM
 from contextChatbot import llm, general_context
+from xgboost import XGBClassifier
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'scretkeyforckdsession12aiproject'
 CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
-with open('ckd_model.pkl', 'rb') as f:
+with open('CKD-XGB.pkl', 'rb') as f:
     model = pickle.load(f)
        
+# columns = [
+#     'specific_gravity', 'hemoglobin', 'serum_creatinine', 'albumin',
+#     'packed_cell_volume', 'diabetes_mellitus', 'hypertension',
+#     'blood_glucose_random', 'red_blood_cell_count', 'blood_urea'
+# ]
 columns = [
-    'specific_gravity', 'hemoglobin', 'serum_creatinine', 'albumin',
-    'packed_cell_volume', 'diabetes_mellitus', 'hypertension',
-    'blood_glucose_random', 'red_blood_cell_count', 'blood_urea'
-]
+    'specific_gravity', 'albumin', 'hemoglobin', 'hypertension',
+    'serum_creatinine', 'sodium', 'white_blood_cell_count',
+    'blood_glucose_random', 'packed_cell_volume', 'age'
+    ]
 
 @app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
@@ -28,16 +34,16 @@ def predict():
         data = request.json
 
         features = np.array([
-            float(data['specific_gravity']),
-            float(data['hemoglobin']),
-            float(data['serum_creatinine']),
+           float(data['specific_gravity']),
             float(data['albumin']),
-            float(data['packed_cell_volume']),
-            int(data['diabetes_mellitus']),
+            float(data['hemoglobin']),
             int(data['hypertension']),
+            float(data['serum_creatinine']),
+            float(data['sodium']),
+            float(data['white_blood_cell_count']),
             float(data['blood_glucose_random']),
-            float(data['red_blood_cell_count']),
-            float(data['blood_urea']),
+            float(data['packed_cell_volume']),
+            float(data['age']),
         ])
 
         features_df = pd.DataFrame([features], columns=columns)
