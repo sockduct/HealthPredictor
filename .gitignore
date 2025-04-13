@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# PDFs
+*.pdf
+
+# Shelve/DBM files:
+*.bak
+*.dat
+*.dir
