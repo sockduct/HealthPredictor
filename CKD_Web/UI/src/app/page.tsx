@@ -9,16 +9,28 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const [formData, setFormData] = useState({
-    specific_gravity: '1.01',
+    specific_gravity: '1.010',
     albumin: '3.0',
-    blood_glucose_random: '380.0',
-    blood_urea: '60.0',
-    serum_creatinine: '2.7',
-    packed_cell_volume: '32.0',
-    red_blood_cell_count: '3.8',
-    hypertension: '1',
     hemoglobin: '10.8',
-    diabetes_mellitus: '1',
+    hypertension: '1',
+    serum_creatinine: '2.7',
+    sodium: '131.0',
+    white_blood_cell_count: '4500.0',
+    blood_glucose_random: '380.0',
+    packed_cell_volume: '32',
+    age: '63',
+
+    // // No ckd
+    // specific_gravity: '1.025',
+    // albumin: '0.0',
+    // hemoglobin: '15.8',
+    // hypertension: '0',
+    // serum_creatinine: '1.1',
+    // sodium: '141.0',
+    // white_blood_cell_count: '6800.0',
+    // blood_glucose_random: '131.0',
+    // packed_cell_volume: '53',
+    // age: '58',
   });
 
 
@@ -48,15 +60,15 @@ const Home: React.FC = () => {
       try{
         const data = {
           specific_gravity: formData.specific_gravity,
-          hemoglobin: formData.hemoglobin,
-          serum_creatinine: formData.serum_creatinine,
           albumin: formData.albumin,
-          packed_cell_volume: formData.packed_cell_volume,
-          diabetes_mellitus: formData.diabetes_mellitus,
+          hemoglobin: formData.hemoglobin,
           hypertension: formData.hypertension,
+          serum_creatinine: formData.serum_creatinine,
+          sodium: formData.sodium,
+          white_blood_cell_count: formData.white_blood_cell_count,
           blood_glucose_random: formData.blood_glucose_random,
-          red_blood_cell_count: formData.red_blood_cell_count,
-          blood_urea: formData.blood_urea
+          packed_cell_volume: formData.packed_cell_volume,
+          age: formData.age
         };
 
         const response = await axios.post('http://localhost:5050/predict', data, {withCredentials: true});
