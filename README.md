@@ -141,12 +141,19 @@ This is a frontend application built with Next.js that provides a user interface
   * packed_cell_volume: 48
   * age: 40
 
-* Example chatbot prompts:
+* Example chatbot prompts for CKD patients:
   * Why do I have chronic kidney disease?
   * What is the biggest contributor?
   * What are early signs of kidney problems?
-  * How can I keep my kidneys healthy?
   * What foods should I limit with CKD?
+
+* Example chatbot prompts for non-CKD patients:
+  * How can I keep my kidneys healthy?
+  * Where can I learn more about CKD?
+
+* Example chatbot prompts the will be denied:
+  * Where can I get the best deal on Detroit Red Wings tickets? (Non CKD question)
+  * Why do I have diabetes? (Non CKD question)
 
 ### Troubleshooting
 
@@ -159,5 +166,5 @@ This is a frontend application built with Next.js that provides a user interface
   environment
 * The first time you perform each operation on the web site - the first visit,
   the first patient data submission, etc. - it can take up to a minute each for
-  the app to "compile."  If you view the console where you did the `next dev` to
-  run the web app, you'll see it's progress...
+  the app to "compile."  If you view the console where you did the `npm run dev`
+  to run the web app, you'll see it's progress...
