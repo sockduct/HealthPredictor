@@ -22,7 +22,86 @@
     PS> .venv\scripts\activate
     ```
 
-* Install required libraries from within Python virtual environment:
+* Install required libraries from within Python virtual environment from the root
+  directory of the repository (where the master requirements.txt package specifications is):
   `pip install -r requirements.txt`
-* Start the Jupyter lab environment to browse/work on the Notebooks:
+
+* Create a `.env` file with your Azure OpenAI credentials/environment in CKD_WEB/Backend:
+
+  ```env
+  OPENAI_API_BASE="https://<YOUR-ENDPOINT.EXAMPLE.COM>/azure-openai-api"
+  OPENAI_API_KEY="<YOUR_API_KEY>"
+  OPENAI_ORGANIZATION="<YOUR-ORG-ID>"
+  MODEL="gpt-4o-mini"
+  API_VERSION="2024-06-01"
+  ```
+
+* Install Node.js (if not installed):
+
+  * Follow [this guide](https://nodejs.org/en/download/) to install Node.js.
+
+* Install Node Dependencies in the CKD_Web/UI directory (where the package.json
+  dependency requirements file is):
+
+  ```PowerShell
+  PS> npm install
+  ```
+
+## Explore Notebooks
+
+* Start the Jupyter lab environment to browse/work on the Notebooks (from the root
+  directory of the repository):
   `jupyter lab`
+
+## Try Out the Web App in Development Mode (CKD_Web)
+
+### Kidney Disease Prediction Backend API (CKD_Web/Backend)
+
+This is a Flask-based REST API that uses a trained Random Forest model to predict
+the likelihood of chronic kidney disease based on medical input data.
+
+#### Features
+
+* Accepts JSON data through a POST request
+* Predicts using a trained Random Forest model ('CKD-XGB.pkl')
+* Returns the prediction serialized in JSON format
+* CORS enabled for cross-origin requests
+
+#### How to Run the Backend
+
+* Make sure you have the trained model file CKD-XGB.pkl in the CKD_Web/Backend directory
+* Validate .env correctly configured in the CKD_Web/Backend directory with Azure
+  OpenAI LLM model details and credentials (see Setup section above)
+* Run the Flask app using the development server - app runs on <http://localhost:5050>:
+
+  ```PowerShell
+  PS> python .\app.py
+  ```
+
+#### API Endpoint
+
+POST /predict
+
+### Kidney Disease Prediction Frontend UI (CKD_Web/UI - Next.js)
+
+This is a frontend application built with Next.js that provides a user interface for the Kidney Disease Prediction API.
+
+#### How to Run the Frontend
+
+* Ensure Node.js and this app's dependencies are installed (see Setup)
+* Start the development server - app runs on <http://localhost:3000>:
+
+  ```PowerShell
+  PS> npm run dev
+  ```
+
+#### Frontend App Features
+
+* User form to input medical data
+* Sends data to Flask API Backend (/predict endpoint)
+
+### Troubleshooting
+
+* Ensure both the Flask backend and Next.js frontend are both running for the app
+  to work correctly
+* Ensure you start each one in the correct directory (see notes above)
