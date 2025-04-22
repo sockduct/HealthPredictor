@@ -26,7 +26,7 @@
   directory of the repository (where the master requirements.txt package specifications is):
   `pip install -r requirements.txt`
 
-* Create a `.env` file with your Azure OpenAI credentials/environment in CKD_WEB/Backend:
+* Create a `.env` file with your Azure OpenAI credentials/environment in CKD_Web/Backend:
 
   ```env
   OPENAI_API_BASE="https://<YOUR-ENDPOINT.EXAMPLE.COM>/azure-openai-api"
@@ -99,6 +99,39 @@ This is a frontend application built with Next.js that provides a user interface
 
 * User form to input medical data
 * Sends data to Flask API Backend (/predict endpoint)
+
+### Test Web App
+
+* Patient with CKD (Patient ID - 249 from data/chronickidneydisease-uci-400x25.csv)
+  * specific_gravity: 1.01
+  * albumin: 4
+  * hemoglobin: 3.1
+  * hypertension: 1
+  * serum_creatinine: 13.3
+  * sodium: 124
+  * white_blood_cell_count: 5400
+  * blood_glucose_random: 176
+  * packed_cell_volume: 9
+  * age: 56
+
+* Patient without CKD (Patient ID - 250 from data/chronickidneydisease-uci-400x25.csv)
+  * specific_gravity: 1.025
+  * albumin: 0
+  * hemoglobin: 15
+  * hypertension: 0
+  * serum_creatinine: 1.2
+  * sodium: 135
+  * white_blood_cell_count: 10400
+  * blood_glucose_random: 140
+  * packed_cell_volume: 48
+  * age: 40
+
+* Example chatbot prompts:
+  * Why do I have chronic kidney disease?
+  * What is the biggest contributor?
+  * What are early signs of kidney problems?
+  * How can I keep my kidneys healthy?
+  * What foods should I limit with CKD?
 
 ### Troubleshooting
 
