@@ -75,6 +75,7 @@ the likelihood of chronic kidney disease based on medical input data.
 * Run the Flask app using the development server - app runs on <http://localhost:5050>:
 
   ```PowerShell
+  # Ensure you are running from within the activated Python virtual environment (see Setup)
   PS> python .\app.py
   ```
 
