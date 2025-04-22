@@ -53,6 +53,14 @@
   directory of the repository):
   `jupyter lab`
 
+* Dataset Exploration:
+  * [Analyze Runs - 100 Random Sampling (Original Dataset)](AnalyzeRuns100Random.ipynb)
+  * [Analyze Runs - 100 KNN Imputation (Original Dataset)](AnalyzeRuns100KNN.ipynb)
+  * [HealthPredictor Notebook - Original Dataset](HealthPredictor.ipynb)
+  * [HealthPredictor Notebook 2 - New Dataset](HealthPredictor2.ipynb)
+
+* Note: Analyze Runs data created using `batch_collector.py`
+
 ## Try Out the Web App in Development Mode (CKD_Web)
 
 ### Kidney Disease Prediction Backend API (CKD_Web/Backend)
@@ -103,6 +111,12 @@ This is a frontend application built with Next.js that provides a user interface
 
 ### Test Web App
 
+* Open a new tab running the webapp:
+  * <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer">
+    Open Local Web App in New Tab</a>
+  * Note:  The first time you open the web app and the first time you run each
+    operation, it can take up to a minute for the app to "compile" and run...
+
 * Patient with CKD (Patient ID - 249 from data/chronickidneydisease-uci-400x25.csv)
   * specific_gravity: 1.01
   * albumin: 4
@@ -136,6 +150,14 @@ This is a frontend application built with Next.js that provides a user interface
 
 ### Troubleshooting
 
-* Ensure both the Flask backend and Next.js frontend are both running for the app
-  to work correctly
+* Ensure both the Flask backend and Next.js frontend are running for the app to
+  work correctly
 * Ensure you start each one in the correct directory (see notes above)
+* Ensure you have followed the setup directions to correctly install Python and
+  Node/JavaScript dependencies
+* Ensure you are running the Python backend from the correct activated virtual
+  environment
+* The first time you perform each operation on the web site - the first visit,
+  the first patient data submission, etc. - it can take up to a minute each for
+  the app to "compile."  If you view the console where you did the `next dev` to
+  run the web app, you'll see it's progress...
